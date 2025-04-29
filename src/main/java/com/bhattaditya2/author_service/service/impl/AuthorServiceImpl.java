@@ -1,6 +1,7 @@
 package com.bhattaditya2.author_service.service.impl;
 
 import com.bhattaditya2.author_service.entity.Author;
+import com.bhattaditya2.author_service.exception.ResourceNotFoundException;
 import com.bhattaditya2.author_service.repository.AuthorRepository;
 import com.bhattaditya2.author_service.service.AuthorService;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public Author getAuthorById(Long id) {
         return authorRepository.
-                findById(id).orElseThrow(() -> new IllegalStateException("Author not found ID: " + id));
+                findById(id).orElseThrow(() -> new ResourceNotFoundException("Author not found ID: " + id));
     }
 
     @Override
