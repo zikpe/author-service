@@ -18,6 +18,8 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+## make true if app needs to be discovered
+#    enabled: false
 
 logging:
   level:

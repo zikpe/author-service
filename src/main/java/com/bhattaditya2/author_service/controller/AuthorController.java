@@ -2,6 +2,7 @@ package com.bhattaditya2.author_service.controller;
 
 import com.bhattaditya2.author_service.entity.Author;
 import com.bhattaditya2.author_service.service.AuthorService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class AuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
+    public ResponseEntity<Author> createAuthor(@Valid @RequestBody Author author) {
         return new ResponseEntity<>(authorService.createAuthor(author), HttpStatus.CREATED);
     }
 
@@ -35,7 +36,7 @@ public class AuthorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Author> updateAuthor(@PathVariable Long id, @RequestBody Author author) {
+    public ResponseEntity<Author> updateAuthor(@PathVariable Long id, @Valid @RequestBody Author author) {
         return ResponseEntity.ok(authorService.updateAuthor(id, author));
     }
 
