@@ -22,6 +22,9 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author createAuthor(Author author) {
+        if (authorRepository.existsByEmail(author.getEmail())) {
+            throw new IllegalArgumentException("Email already exists: " + author.getEmail());
+        }
         return authorRepository.save(author);
     }
 
