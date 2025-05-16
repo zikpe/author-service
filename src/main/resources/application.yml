@@ -1,30 +1,5 @@
-server:
-  port: 8081
 spring:
   application:
     name: author-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/authordb
-    username: postgres
-    password: password
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-## make true if app needs to be discovered
-#    enabled: false
-
-logging:
-  level:
-    org.springframework.web.client.RestTemplate: INFO
-    org.springframework.web.servlet.DispatcherServlet: INFO
-    com.netflix.discovery: WARN
-    com.netflix.eureka: WARN
-    org.springframework.cloud.netflix.eureka: WARN
+  profiles:
+    active:
