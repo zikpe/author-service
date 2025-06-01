@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface AuthorService {
-    Author createAuthor(Author author);
+    String createAuthor(Author author);
     List<Author> getAllAuthors();
     Author getAuthorById(Long id);
     Author updateAuthor(Long id, Author author);

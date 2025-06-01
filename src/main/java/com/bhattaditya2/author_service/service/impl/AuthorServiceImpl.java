@@ -2,6 +2,7 @@ package com.bhattaditya2.author_service.service.impl;
 
 import com.bhattaditya2.author_service.entity.Author;
 import com.bhattaditya2.author_service.exception.ResourceNotFoundException;
+import com.bhattaditya2.author_service.kafka.AuthorProducer;
 import com.bhattaditya2.author_service.repository.AuthorRepository;
 import com.bhattaditya2.author_service.service.AuthorService;
 import org.springframework.stereotype.Service;
@@ -15,17 +16,23 @@ import java.util.Map;
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
+    private final AuthorProducer authorProducer;
 
-    public AuthorServiceImpl(AuthorRepository authorRepository) {
+    public AuthorServiceImpl(AuthorRepository authorRepository, AuthorProducer authorProducer) {
         this.authorRepository = authorRepository;
+        this.authorProducer = authorProducer;
     }
 
     @Override
-    public Author createAuthor(Author author) {
+    public String createAuthor(Author author) {
         if (authorRepository.existsByEmail(author.getEmail())) {
             throw new IllegalArgumentException("Email already exists: " + author.getEmail());
         }
-        return authorRepository.save(author);
+
+        Author newAuthor = authorRepository.save(author);
+
+        authorProducer.sendAuthorCreatedEvent(newAuthor);
+        return "Author Created!";
     }
 
     @Override
