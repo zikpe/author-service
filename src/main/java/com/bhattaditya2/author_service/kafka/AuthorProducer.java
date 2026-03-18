@@ -24,9 +24,9 @@ public class AuthorProducer {
         try {
             String json = objectMapper.writeValueAsString(author);
             kafkaTemplate.send("author-topic", json);
-            System.out.println("✅ Author event sent: " + json);
+            System.out.println("Author event sent: " + json);
         } catch (Exception e) {
-            System.err.println("❌ Failed to send message: " + e.getMessage());
+            System.err.println("Failed to send message: " + e.getMessage());
         }
     }
 }
